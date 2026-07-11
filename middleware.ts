@@ -1,5 +1,13 @@
-import { auth } from '@/auth'
+import NextAuth from 'next-auth'
 import { NextResponse } from 'next/server'
+import { authConfig } from '@/auth.config'
+
+// Middleware runs on the Edge Runtime with a strict bundle size limit, so it
+// uses the lightweight authConfig (no Credentials provider, no bcrypt, no zod)
+// instead of importing the full ./auth.ts — that keeps this Edge Function
+// well under the 1MB limit. This only checks whether a valid session exists;
+// actual credential verification still happens via auth.ts in the Node runtime.
+const { auth } = NextAuth(authConfig)
 
 export default auth((req) => {
   const { pathname } = req.nextUrl
