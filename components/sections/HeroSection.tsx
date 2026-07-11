@@ -185,11 +185,11 @@ export default function HeroSection() {
             <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
               <div className="absolute inset-0 rounded-full bg-gradient-primary p-[2px]">
                 <div className="w-full h-full rounded-full bg-deep flex items-center justify-center overflow-hidden">
-                  {/* SVG avatar placeholder — replace with real <Image /> */}
                   <Image
                     src={profile.avatar || '/default-avatar.png'}
                     alt={profile.name}
                     fill
+                    unoptimized
                     className="object-cover rounded-full"
                   />
                 </div>

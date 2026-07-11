@@ -152,6 +152,7 @@ export default function ProjectsSection() {
                           src={project.thumbnail}
                           alt={project.title}
                           fill
+                          unoptimized
                           className="object-cover"
                         />
                       ) : (

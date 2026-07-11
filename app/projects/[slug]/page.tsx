@@ -49,6 +49,7 @@ export default async function ProjectPage({
                 src={project.thumbnail}
                 alt={project.title}
                 fill
+                unoptimized
                 className="object-cover"
               />
             ) : (
