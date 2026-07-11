@@ -82,7 +82,7 @@ export default function ContactSection() {
             className="lg:col-span-2 space-y-5"
           >
             {[
-              { icon: Mail, label: 'Email', value: 'sanjay@example.com', href: 'mailto:sanjay@example.com' },
+              { icon: Mail, label: 'Email', value: 'sanjaymsd544@gmail.com', href: 'mailto:sanjaymsd544@gmail.com' },
               { icon: MapPin, label: 'Location', value: 'Tamil Nadu, India', href: null },
             ].map(({ icon: Icon, label, value, href }) => (
               <div key={label} className="flex items-start gap-4 p-5 card-glass">

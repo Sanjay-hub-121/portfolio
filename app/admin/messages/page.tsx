@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { Mail, MailOpen, Trash2, Clock, RefreshCw } from 'lucide-react'
+import { useState, useEffect, useCallback } from 'react'
+import { Mail, MailOpen, Trash2, Clock, RefreshCw, Loader2 } from 'lucide-react'
 
 type Message = {
   id: string
@@ -13,31 +13,28 @@ type Message = {
   createdAt: string
 }
 
-const mockMessages: Message[] = [
-  {
-    id: '1',
-    name: 'Ravi Kumar',
-    email: 'ravi@business.com',
-    subject: 'Website redesign project',
-    message: 'Hi Sanjay, we are looking for a developer to redesign our company website. Please let us know your availability and pricing for a full redesign with admin panel.',
-    read: false,
-    createdAt: new Date('2024-01-15T10:30:00').toISOString(),
-  },
-  {
-    id: '2',
-    name: 'Priya Sharma',
-    email: 'priya@startup.io',
-    subject: 'Mobile app UI design',
-    message: 'We need UI/UX design for our new fintech mobile app. Could you share your portfolio and rates? We have a budget of ₹45,000.',
-    read: true,
-    createdAt: new Date('2024-01-12T14:00:00').toISOString(),
-  },
-]
-
 export default function AdminMessagesPage() {
-  const [messages, setMessages] = useState<Message[]>(mockMessages)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [selected, setSelected] = useState<Message | null>(null)
   const [isDeleting, setIsDeleting] = useState<string | null>(null)
+
+  const loadMessages = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const res = await fetch('/api/contact')
+      const data = await res.json()
+      setMessages(Array.isArray(data) ? data : [])
+    } catch (error) {
+      console.error('Failed to load messages:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    loadMessages()
+  }, [loadMessages])
 
   const unread = messages.filter((m) => !m.read).length
 
@@ -78,7 +75,7 @@ export default function AdminMessagesPage() {
           </p>
         </div>
         <button
-          onClick={() => window.location.reload()}
+          onClick={loadMessages}
           className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-colors"
           style={{ color: '#9898B0', border: '1px solid #252540', background: 'transparent' }}
         >
@@ -87,7 +84,11 @@ export default function AdminMessagesPage() {
         </button>
       </div>
 
-      {messages.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center py-16">
+          <Loader2 className="w-6 h-6 animate-spin" style={{ color: '#6366F1' }} />
+        </div>
+      ) : messages.length === 0 ? (
         <div className="card-glass p-12 text-center">
           <Mail className="w-10 h-10 mx-auto mb-3 opacity-30" style={{ color: '#5E5E7A' }} />
           <p className="text-sm" style={{ color: '#5E5E7A' }}>No messages yet</p>
