@@ -7,9 +7,9 @@ import { MapPin, Briefcase, GraduationCap, Coffee } from 'lucide-react'
 import type { Profile } from '@prisma/client'
 
 const stats = [
-  { label: 'Years Experience', value: '2+', icon: Briefcase },
-  { label: 'Projects Completed', value: '15+', icon: Coffee },
-  { label: 'Happy Clients', value: '10+', icon: GraduationCap },
+  { label: 'Years Experience', value: '1', icon: Briefcase },
+  { label: 'Projects Completed', value: '3', icon: Coffee },
+  { label: 'Happy Clients', value: '1', icon: GraduationCap },
   { label: 'Technologies', value: '20+', icon: MapPin },
 ]
 
