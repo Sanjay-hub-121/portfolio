@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { MapPin, Briefcase, GraduationCap, Coffee } from 'lucide-react'
+import type { Profile } from '@prisma/client'
 
 const stats = [
   { label: 'Years Experience', value: '2+', icon: Briefcase },
@@ -19,7 +20,11 @@ const highlights = [
   { label: 'Focus', value: 'Full Stack + Design', icon: Coffee },
 ]
 
-export default function AboutSection() {
+export default function AboutSection({
+  profile,
+}: {
+  profile: Profile | null
+}) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 

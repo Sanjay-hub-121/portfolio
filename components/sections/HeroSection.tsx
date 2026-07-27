@@ -2,8 +2,8 @@
 
 import { motion, type Variants } from 'framer-motion'
 import { GitBranch, Link2, Mail, ArrowDown, Download, ExternalLink, Pen } from 'lucide-react'
-import { useProfile } from '@/hooks/useProfile'
 import Image from 'next/image'
+import type { Profile } from '@prisma/client'
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -13,13 +13,12 @@ const fadeUp: Variants = {
     transition: { delay: i * 0.12, duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] },
   }),
 }
-export default function HeroSection() {
-  const profile = useProfile()
 
+export default function HeroSection({ profile }: { profile: Profile | null }) {
   if (!profile) {
     return (
       <section className="min-h-screen flex items-center justify-center">
-        Loading profile...
+        Profile not found.
       </section>
     )
   }
@@ -46,6 +45,7 @@ export default function HeroSection() {
       label: 'Email'
     },
   ].filter(link => link.href)
+
   return (
     <section
       id="hero"
@@ -189,7 +189,8 @@ export default function HeroSection() {
                     src={profile.avatar || '/default-avatar.png'}
                     alt={profile.name}
                     fill
-                    unoptimized
+                    priority
+                    sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
                     className="object-cover rounded-full"
                   />
                 </div>

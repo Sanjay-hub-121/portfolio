@@ -9,14 +9,17 @@ import CertificationsSection from '@/components/sections/CertificationsSection'
 import ServicesSection from '@/components/sections/ServicesSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import ContactSection from '@/components/sections/ContactSection'
+import { getProfile } from '@/lib/getProfile'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const profile = await getProfile()
+
   return (
     <>
       <Navbar />
       <main>
-        <HeroSection />
-        <AboutSection />
+        <HeroSection profile={profile} />
+        <AboutSection profile={profile} />
         <SkillsSection />
         <ProjectsSection />
         <ExperienceSection />
