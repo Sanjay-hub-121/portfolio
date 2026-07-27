@@ -24,27 +24,35 @@ export default function HeroSection({ profile }: { profile: Profile | null }) {
   }
 
   const socialLinks = [
-    {
-      icon: GitBranch,
-      href: profile.githubUrl,
-      label: 'GitHub'
-    },
-    {
-      icon: Link2,
-      href: profile.linkedinUrl,
-      label: 'LinkedIn'
-    },
-    {
-      icon: Pen,
-      href: profile.behanceUrl,
-      label: 'Behance'
-    },
-    {
-      icon: Mail,
-      href: `mailto:${profile.email}`,
-      label: 'Email'
-    },
-  ].filter(link => link.href)
+  {
+    icon: GitBranch,
+    href: profile.githubUrl,
+    label: 'GitHub',
+  },
+  {
+    icon: Link2,
+    href: profile.linkedinUrl,
+    label: 'LinkedIn',
+  },
+  {
+    icon: Pen,
+    href: profile.behanceUrl,
+    label: 'Behance',
+  },
+  {
+    icon: Mail,
+    href: `mailto:${profile.email}`,
+    label: 'Email',
+  },
+].filter(
+  (
+    link
+  ): link is {
+    icon: typeof GitBranch
+    href: string
+    label: string
+  } => typeof link.href === 'string'
+)
 
   return (
     <section
@@ -159,7 +167,7 @@ export default function HeroSection({ profile }: { profile: Profile | null }) {
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
-                  href={href}
+                  href={href!}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
